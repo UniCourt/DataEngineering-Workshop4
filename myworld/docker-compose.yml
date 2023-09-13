@@ -1,0 +1,66 @@
+version: "3"
+services:
+ web_service:
+   build:
+     context: ./
+     dockerfile: ./dockerfiles/Dockerfile
+   image: workshop1_web
+   container_name: workshop_web_container
+   stdin_open: true #  docker attach container_id
+   tty: true
+   environment:
+     - RABBITMQ_DEFAULT_USER=myuser
+     - RABBITMQ_DEFAULT_PASS=mypassword
+     - BROKER_HOST=service-rabbitmq
+     - RABBITMQ_DEFAULT_VHOST=extractor
+     - BROKER_PORT=5672
+   ports:
+    - "8000:8000"
+   volumes:
+    - .:/root/workspace/site
+
+ psql-db:
+   image: 'postgres:14'
+   container_name: psql-db
+   environment:
+     - PGPASSWORD=123456
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=123456
+   ports:
+     - '5446:5432'
+   volumes:
+     - db:/var/lib/postgresql/data
+
+ service-rabbitmq:
+   container_name: "service_rabbitmq"
+   image: rabbitmq:3.8-management-alpine
+   environment:
+     - RABBITMQ_DEFAULT_USER=myuser
+     - RABBITMQ_DEFAULT_PASS=mypassword
+     - RABBITMQ_DEFAULT_VHOST=extractor
+     - BROKER_HOST=service-rabbitmq
+   ports:
+     - '5672:5672'
+     - '15676:15672'
+ worker:
+   build:
+     context: ./
+     dockerfile: ./dockerfiles/Dockerfile
+   image: workshop1_web
+   container_name: worker
+   stdin_open: true #  docker attach container_id
+   tty: true
+   environment:
+     - RABBITMQ_DEFAULT_USER=myuser
+     - RABBITMQ_DEFAULT_PASS=mypassword
+     - BROKER_HOST=service-rabbitmq
+     - RABBITMQ_DEFAULT_VHOST=extractor
+     - BROKER_PORT=5672
+   ports:
+     - "4356:8000"
+   volumes:
+     - .:/root/workspace/site
+
+volumes:
+ db:
+   driver: local
