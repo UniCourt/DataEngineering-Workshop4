@@ -55,7 +55,7 @@ sudo apt-get install rabbitmq-server
 ```
 rabbitmq-server
 ```
-- If the above command didn't work, you can try script provide .[here](https://www.rabbitmq.com/install-debian.html#apt-quick-start-cloudsmith) to install RabbitMQ.
+- If the above command didn't work, you can try script provide [here](https://www.rabbitmq.com/install-debian.html#apt-quick-start-cloudsmith) to install RabbitMQ.
 
 **Step 2**: Configure RabbitMQ for Celery, use the following commands.
 ```
