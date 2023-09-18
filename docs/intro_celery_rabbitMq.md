@@ -42,7 +42,7 @@
 - **Consumer (Celery Workers)**: The Consumer is the one or multiple Celery workers executing the tasks. You could start many workers depending on your use case.
 - **Result Backend**: The Result Backend is used for storing the results of your tasks. However, it is not a required element, so if you do not include it in your settings, you cannot access the results of your tasks.
 
- **Note**: Please see the [vedio](https://youtu.be/TzVkED3y3Ig?si=OLCgz-9qE0opbSX-) for more information
+ **Note**: For additional information, please refer to the [vedio](https://youtu.be/TzVkED3y3Ig?si=OLCgz-9qE0opbSX-)
 
 ## A simple Demo Project
 
