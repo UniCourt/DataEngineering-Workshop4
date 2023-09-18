@@ -79,8 +79,9 @@ We need broker(rabbitmq) configuration to register celery task.
   ├── urls.py
   └── wsgi.py
   ```
-- Add blow content to celery.py
+- Add below content to celery.py
   ```python
+  import os
   from celery import Celery
   
   # Set the default Django settings module for the 'celery' program.
